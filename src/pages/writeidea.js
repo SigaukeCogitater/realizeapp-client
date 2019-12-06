@@ -3,12 +3,13 @@ import './writeidea.css';
 // import WriteIdea from './writeidea.js';
 
 class writeidea extends Component{
-    state = {
+                      
+    state = {           
         title:"",
         description:"",
         //public_private: false;
         //direct_submit_to_competition: false;
-    };
+    };                       
     handleDescription = e => {
         e.preventDefault();
         this.setState({

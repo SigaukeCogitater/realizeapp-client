@@ -42,6 +42,7 @@ const theme = createMuiTheme(
 
 class App extends Component{
   render(){
+    // const classes = useStyles();
 
     return (
       <MuiThemeProveder theme ={theme}>
@@ -54,7 +55,7 @@ class App extends Component{
                 <Route exact path="/signin" component={signin}/>
                 <Route exact path="/personalsignup" component={personalsignup}/>
                 <Route exact path="/writeidea" component={writeidea}/>
-                
+                                         
                 <Route exact path="/companysignup" component={companysignup}/>
               </Switch>
             </div>

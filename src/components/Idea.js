@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 // MUI Stuff
 import Card from '@material-ui/core/Card';
@@ -25,7 +27,7 @@ const styles = {
 
 class Idea extends Component {
   render() {
-    // dayjs.extend(relativeTime);
+    dayjs.extend(relativeTime);
     const {
       classes,
         idea: {
@@ -55,7 +57,7 @@ class Idea extends Component {
           </Typography>
           {/* {deleteButton} */}
           <Typography variant="body2" color="textSecondary">
-            {/* {dayjs(createdAt).fromNow()} */}
+            {dayjs(createdAt).fromNow()} 
           </Typography>
           <Typography variant="body1">{body}</Typography>
           {/* <LikeButton screamId={screamId} /> */}

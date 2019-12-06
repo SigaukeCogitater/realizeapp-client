@@ -14,6 +14,7 @@ class home extends Component {
     componentDidMount(){
         axios.get('/ideas')
             .then(res => {
+                console.log("in axios home");
                 console.log(res.data);
                 this.setState({
                     ideas: res.data
@@ -33,7 +34,7 @@ class home extends Component {
 
     render() {
         let recentIdeasMarkup = this.state.ideas ? (
-            this.state.ideas.map(idea => <Idea idea={idea}/>)
+            this.state.ideas.map(idea => <Idea key = { idea.ideaId } idea={idea}/>)
         ) : <p>Loading ...</p>;
         let recentCompetitionsMarkup = this.state.competitions ? (
             this.state.competitions.map(competition => <Competition competition={competition}/>)
