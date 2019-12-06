@@ -51,7 +51,7 @@ class Idea extends Component {
             component={Link}
             to={`/users/${userName}`}
             color="primary">
-            {/* {userHandle} */}
+            {userName}
           </Typography>
           {/* {deleteButton} */}
           <Typography variant="body2" color="textSecondary">

@@ -10,9 +10,10 @@ import Navbar from './components/Navbar';
 //Pages
 
 import home from './pages/home';
-import personal_signup from './pages/personal_signup';
-import company_signup from './pages/company_signup';
-import login from './pages/login';
+import personalsignup from './pages/personalsignup';
+import companysignup from './pages/companysignup';
+import signin from './pages/signin';
+import writeidea from './pages/writeidea';
 
 
 //theme from mui
@@ -50,9 +51,11 @@ class App extends Component{
             <div className="container">
             <Switch>  
                 <Route exact path="/" component={home}/>
-                <Route exact path="/login" component={login}/>
-                <Route exact path="/personal_signup" component={personal_signup}/>
-                <Route exact path="/company_signup" component={company_signup}/>
+                <Route exact path="/signin" component={signin}/>
+                <Route exact path="/personalsignup" component={personalsignup}/>
+                <Route exact path="/writeidea" component={writeidea}/>
+                
+                <Route exact path="/companysignup" component={companysignup}/>
               </Switch>
             </div>
           </Router>

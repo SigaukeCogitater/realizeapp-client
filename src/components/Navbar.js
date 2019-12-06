@@ -11,10 +11,12 @@ class Navbar extends Component {
         return (
             <AppBar>
                 <Toolbar class="nav-container">
-                    <Button color="inherit" component={Link} to="/login">Login</Button>
+                    <Button color="inherit" component={Link} to="/signin">Sigin</Button>
                     <Button color="inherit" component={Link} to="/">Home</Button>
-                    <Button color="inherit" component={Link} to="/company_signup">Signup Companies</Button>
-                    <Button color="inherit" component={Link} to="/personal_signup">Signup Personal</Button>
+                    <Button color="inherit" component={Link} to="/companysignup">Signup Companies</Button>
+                    <Button color="inherit" component={Link} to="/personalsignup">Signup Personal</Button>
+                    <Button color="inherit" component={Link} to="/writeidea">Write Idea</Button>
+                    
                 </Toolbar>
             </AppBar>
         )
