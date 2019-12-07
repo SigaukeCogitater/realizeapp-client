@@ -12,6 +12,7 @@ class home extends Component {
     }
 
     componentDidMount(){
+        
         axios.get('/ideas')
             .then(res => {
                 console.log("in axios home");

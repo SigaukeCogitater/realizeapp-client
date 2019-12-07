@@ -12,6 +12,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 
+//Jquery
+
+import $ from 'jquery';
+
 const styles = {
     form: {
         textAlign: 'center'
@@ -27,6 +31,9 @@ const styles = {
     },
     button:{
         marginTop: 20 
+    },
+    customError: {
+        color: 'red'
     }
     
 }
@@ -45,43 +52,38 @@ class signin extends Component {
     };
     
 
-    componentDidMount(){
-
-        var headers = {
-            "Content-Type": "application/json",                                                                                                
-            "Access-Control-Allow-Origin": '*'
-         }
-
-        var data = {
-            "email": "peter@klaven",
-            "password": "cityslicka"
-        }
+    // componentDidMount(){
         
-        fetch("https://asia-northeast1-realizeapp-cd0a5.cloudfunctions.net/api/login", {
-            method: "POST",
-            headers: headers,
-            body:  JSON.stringify(data)
-        })
-        .then(function(response){ 
-            return response.json(); 
-        })
-        .then(function(data){ 
-            console.log(data)
-        });
+    //     $.ajax({
+    //         url:"https://asia-northeast1-realizeapp-cd0a5.cloudfunctions.net/api/login",
+    //         type:"POST",
+    //         async:true,
+    //         crossDomain:true,
+    //         dataType:"json",
+    //         data:{
+    //       "email": "cocacola@gmail.com", 
+    //       "password": "123456789"
+    //     },
+    //         contentType:"application/json; charset=utf-8",
+    //         accepts:{
+    //       "*": "*/*",
+    //       text: "text/plain",
+    //       html: "text/html",
+    //       xml: "application/xml, text/xml",
+    //       json: "application/json, text/javascript"
+    //     },
+    //         cache:true,
+    //         beforeSend:BeforeSend,
+    //         complete:OnComplete,
+    //         success:OnSuccess,
+    //         error:OnError
+    //     });
+        
 
-
-
-        // axios.get('/user/image10')
-        //     .then(res => {
-        //         console.log("in axios signin");
-        //         console.log(res.data);
-                
-        //     })
-        //     .catch(err => console.log(err));
-
-    }
+    // }
 
     handleSubmit = (event) => {
+        
         console.log("submitted");
         event.preventDefault();
         this.setState({
@@ -96,32 +98,29 @@ class signin extends Component {
         
           const userData ={
             
-            'email': "tatata", //this.state.email,
-            'password': "why are you" // this.state.password
+            "email": this.state.email,
+            "password": this.state.password
         };
           axios.post('/login', userData, axiosConfig)
             .then(res => {
-                console.log(res);
-                console.log("NOw I AM Working");
-            })
-            .catch(err => console.log('Login: ', err))
-        
-        console.log("fished data from state");
-        console.log(userData);
-        axios.post('/login', userData)
-            .then((res) => {
-                console.log("inAxios");
-                console.log(res.data);
-                this.setState({
-                    loading: false
-                });                
+                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
+                this.setState({token : res.data.token,
+                loading: false});
+
                 this.props.history.push('/');
+                console.log(this.state);
             })
             .catch((err) => {
-                this.setState({
-                    errors: err.response.data,
-                    loading: false
-                });
+                this.state.errors = err.response.data;
+                //this.state.errors.password = err.response.data.errors.password;
+                //this.state.errors.email = err.response.data.errors.email;
+                this.state.loading = false;
+                console.log(this.state.errors);
+
+                // this.setState({
+                //     errors: err.response.data,
+                //     loading: false
+                // });
             });
     };
 
@@ -164,8 +163,14 @@ class signin extends Component {
                             value={this.state.password} 
                             onChange={this.handleChange} 
                             fullWidth/>
-                        {/* <br /> */}
-                        <Button
+                        
+                            {errors.general && (
+                              <Typography variant="body2" className={classes.customError}>
+                                {errors.general}
+                              </Typography>
+                            )}
+
+                            <Button
                             type="submit"
                             variant="contained"
                             color="primary"
