@@ -31,7 +31,8 @@ const styles = {
         margin: '10px auto 10px auto'
     },
     button:{
-        marginTop: 20 
+        marginTop: 20,
+        position: 'relative' 
     },
     customError: {
         color: 'red',
@@ -69,7 +70,7 @@ class companysignup extends Component {
     
     handleSubmit = (event) => {
         
-        console.log("submitted");
+        
         event.preventDefault();
         this.setState({
             loading: true
@@ -95,17 +96,20 @@ class companysignup extends Component {
           axios.post('/signup/company', userData, axiosConfig)
             .then(res => {
                 localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
+                console.log(res.data);
                 this.state.loading = false;
                 // this.setState({token : res.data.token,
                 // loading: false});
 
                 this.props.history.push('/');
+                console.log("got response");
                 console.log(this.state);
             })
             .catch((err) => {
                 this.state.errors = err.response.data;
               
                 this.state.loading = false;
+                console.log("got errors");
                 console.log(this.state);
 
               
@@ -155,10 +159,10 @@ class companysignup extends Component {
                             name="confirmPassword" 
                             type="password" 
                             label="Confirm Password"
-                            helperText={errors.password}
-                            error={errors.password ? true : false} 
+                            helperText={errors.confirmPassword}
+                            error={errors.confirmPassword ? true : false} 
                             className={classes.TextField}
-                            value={this.state.password} 
+                            value={this.state.confirmPassword} 
                             onChange={this.handleChange} 
                             fullWidth/>
                         <TextField id="userName" 

@@ -8,28 +8,33 @@ import Competition from '../components/Competition';
 class home extends Component {
 
     state = {
-        ideas: null
+        ideas: null,
+        competitions: null
     }
 
     componentDidMount(){
         
         axios.get('/ideas')
             .then(res => {
-                console.log("in axios home");
+                console.log("in axios ideas");
                 console.log(res.data);
                 this.setState({
                     ideas: res.data
                 });
-                return axios.get('/competitions');
+                
             })
+            .catch(err => console.log(err));
+        axios.get('/competitions')
             .then(res => {
+                console.log("in axios competitions");
                 console.log(res.data);
                 this.setState({
                     competitions: res.data
                 });
-
+                
             })
             .catch(err => console.log(err));
+        
 
     }
 
@@ -38,7 +43,7 @@ class home extends Component {
             this.state.ideas.map(idea => <Idea key = { idea.ideaId } idea={idea}/>)
         ) : <p>Loading ...</p>;
         let recentCompetitionsMarkup = this.state.competitions ? (
-            this.state.competitions.map(competition => <Competition competition={competition}/>)
+            this.state.competitions.map(competition => <Competition key = { competition.competitionId } competition={competition}/>)
         ) : <p>Loading ...</p>;
 
         return (
