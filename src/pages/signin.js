@@ -3,13 +3,14 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import AppIcon from '../images/icon.png';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 //MUI Stuff
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 //Jquery
@@ -33,10 +34,18 @@ const styles = {
         marginTop: 20 
     },
     customError: {
-        color: 'red'
+        color: 'red',
+        fontSize: '0.8rem',
+        marginTop: 10
+    },
+    progress:{
+        position: 'absolute'
+    },
+    small:{
+        marginTop: 10
     }
     
-}
+};
 
 class signin extends Component {
 
@@ -50,37 +59,6 @@ class signin extends Component {
             
         };
     };
-    
-
-    // componentDidMount(){
-        
-    //     $.ajax({
-    //         url:"https://asia-northeast1-realizeapp-cd0a5.cloudfunctions.net/api/login",
-    //         type:"POST",
-    //         async:true,
-    //         crossDomain:true,
-    //         dataType:"json",
-    //         data:{
-    //       "email": "cocacola@gmail.com", 
-    //       "password": "123456789"
-    //     },
-    //         contentType:"application/json; charset=utf-8",
-    //         accepts:{
-    //       "*": "*/*",
-    //       text: "text/plain",
-    //       html: "text/html",
-    //       xml: "application/xml, text/xml",
-    //       json: "application/json, text/javascript"
-    //     },
-    //         cache:true,
-    //         beforeSend:BeforeSend,
-    //         complete:OnComplete,
-    //         success:OnSuccess,
-    //         error:OnError
-    //     });
-        
-
-    // }
 
     handleSubmit = (event) => {
         
@@ -179,10 +157,16 @@ class signin extends Component {
                             // disabled={loading}
                             >
                               Signin
-                              {/* {loading && (
+                              {loading && (
                                 <CircularProgress size={30} className={classes.progress} />
-                              )} */}
-                            </Button>                            
+                              )}
+                            </Button>  <br /><br /> 
+                            <small className={classes.small}>
+                                  dont have an account ? <br /> 
+                                  sign up a <Link to="/companysignup">company account</Link>
+                                  <br />
+                                  sign up a <Link to="/personalsignup">Personal account</Link>
+                            </small>                         
 
                     </form>
 
@@ -201,23 +185,3 @@ signin.propTypes = {
 }
 
 export default withStyles(styles)(signin);
-
-
-
-// <form>
-//                 <title>Realize</title>
-//                 <div id="SignIn">
-//                     <h1>Sign In</h1>
-//                     <p><input id= "ID" placeholder="ID" onChange={this.inputID}></input></p>
-//                     <p><input type="password" id="Password" placeholder="Password" onChange={this.inputPassword}></input></p>
-//                     <div class="button" onClick={this.empty/*check if there's corresponding data in database*/}>Log In</div>
-//                     {console.log("Password change:" + this.state.Password)}
-//                     {console.log("ID change: " + this.state.ID)}
-//                 </div>
-//                 <div id="SignUp">
-//                     <h1>Sign Up</h1>
-//                     <div class="button" onClick={this.empty/*go to sign up page*/} >Personal</div>
-//                     <div class="button" onClick={this.empty/*go to sign up page*/} >Company</div>
-//                 </div>
-                
-//             </form>
