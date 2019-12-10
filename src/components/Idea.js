@@ -14,14 +14,18 @@ const styles = {
   card: {
     position: 'relative',
     display: 'flex',
-    marginBottom: 20
+    marginBottom: 20,
+    backgroundColor: '#C0C0C0'
   },
   image: {
-    minWidth: 200
+    minWidth: 200,
+    maxWidth: 200,
+    maxHeigth:200
   },
   content: {
     padding: 25,
-    objectFit: 'cover'
+    objectFit: 'cover',
+    size: '5pt'
   }
 };
 
@@ -54,39 +58,29 @@ class Idea extends Component {
             to={`/users/${userName}`}
             color="primary">
             {userName}
+            
+            <br />
           </Typography>
-          {/* {deleteButton} */}
+          <br/>
+          <Typography
+            variant="body1"
+            component={Link}
+            to={`/users/${userName}`}
+            color="secondary">
+            {body}<hr/><br/>
+          </Typography>
+          
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()} 
           </Typography>
-          <Typography variant="body1">{body}</Typography>
-          {/* <LikeButton screamId={screamId} /> */}
-          {/* <span>{likeCount} Likes</span> */}
-          {/* <MyButton tip="comments">
-            <ChatIcon color="primary" />
-          </MyButton>
-          <span>{commentCount} comments</span>
-          <ScreamDialog
-            screamId={screamId}
-            userHandle={userHandle}
-            openDialog={this.props.openDialog}
-          /> */}
+          
+          
         </CardContent>
       </Card>
     );
   }
 }
 
-// Idea.propTypes = {
-//   user: PropTypes.object.isRequired,
-//   scream: PropTypes.object.isRequired,
-//   classes: PropTypes.object.isRequired,
-//   openDialog: PropTypes.bool
-// };
-
-const mapStateToProps = (state) => ({
-  user: state.user
-});
 
 export default withStyles(styles)(Idea);
 

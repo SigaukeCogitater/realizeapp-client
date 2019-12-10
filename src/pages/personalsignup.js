@@ -74,12 +74,12 @@ class personalsignup extends Component {
         this.setState({
             loading: true
         });
-        let axiosConfig = {
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                "Access-Control-Allow-Origin": "*",
-            }
-          };
+        // let axiosConfig = {
+        //     headers: {
+        //         'Content-Type': 'application/json;charset=UTF-8',
+        //         "Access-Control-Allow-Origin": "*",
+        //     }
+        //   };
         
           const userData ={
             "accountType": this.state.accountType,
@@ -90,22 +90,26 @@ class personalsignup extends Component {
             "password": this.state.password,
             "confirmPassword": this.state.confirmPassword
         };
-          axios.post('/signup/personal', userData, axiosConfig)
+          axios.post('/signup/personal', userData)
             .then(res => {
-                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-                console.log(res.data);
-                this.state.loading = false;
-                // this.setState({token : res.data.token,
-                // loading: false});
+                const FBIdToken = `Bearer ${res.data.token}`;
+                localStorage.setItem('FBIdToken', FBIdToken);
+                axios.defaults.headers.common['Authorization'] = FBIdToken;
 
+                this.setState({
+                    token : res.data.token,
+                    loading: false}
+                    );
                 this.props.history.push('/');
                 console.log("got response");
                 console.log(this.state);
             })
             .catch((err) => {
-                this.state.errors = err.response.data;
-              
-                this.state.loading = false;
+                this.setState({
+                    errors: err.response.data,
+                    loading: false
+                })
+                
                 console.log("got errors");
                 console.log(this.state);
 

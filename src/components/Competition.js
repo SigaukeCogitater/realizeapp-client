@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
-
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 // MUI Stuff
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -25,68 +26,50 @@ const styles = {
 
 class Competition extends Component {
   render() {
-    // dayjs.extend(relativeTime);
+    
+    dayjs.extend(relativeTime);
+
     const {
       classes,
         competition: {
-        // body,
+        body,
+        title,
         createdAt,
-        // userImage,
+        userImage,
         userName,
         competitionId,
-        // likesCount,
-        // commentsCount,
-        // title,
-        description, 
-        // category,
-        // author,
-
+        likesCount,
+        commentsCount
       }
     } = this.props;
 
     return (
       <Card className={classes.card}>
-        {/* <CardMedia
+        <CardMedia
           image={userImage}
           title="Profile image"
-          className={classes.image}/> */}
+          className={classes.image}/>
         <CardContent className={classes.content}>
           <Typography
             variant="h5"
             component={Link}
             to={`/users/${userName}`}
             color="primary">
-            {/* {userHandle} */}
+            {userName}
           </Typography>
-          {/* {deleteButton} */}
+         
           <Typography variant="body2" color="textSecondary">
             {createdAt}
-            {/* {dayjs(createdAt).fromNow()} */}
+            {dayjs(createdAt).fromNow()}
+
           </Typography>
-          <Typography variant="body1">{description}</Typography>
-          {/* <LikeButton screamId={screamId} /> */}
-          {/* <span>{likeCount} Likes</span> */}
-          {/* <MyButton tip="comments">
-            <ChatIcon color="primary" />
-          </MyButton>
-          <span>{commentCount} comments</span>
-          <ScreamDialog
-            screamId={screamId}
-            userHandle={userHandle}
-            openDialog={this.props.openDialog}
-          /> */}
+          <Typography variant="body1">{title}</Typography>
+          
         </CardContent>
       </Card>
     );
   }
 }
-
-// competition.propTypes = {
-//   user: PropTypes.object.isRequired,
-//   scream: PropTypes.object.isRequired,
-//   classes: PropTypes.object.isRequired,
-//   openDialog: PropTypes.bool
-// };
 
 const mapStateToProps = (state) => ({
   user: state.user

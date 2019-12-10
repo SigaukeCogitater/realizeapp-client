@@ -75,12 +75,12 @@ class companysignup extends Component {
         this.setState({
             loading: true
         });
-        let axiosConfig = {
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                "Access-Control-Allow-Origin": "*",
-            }
-          };
+        // let axiosConfig = {
+        //     headers: {
+        //         'Content-Type': 'application/json;charset=UTF-8',
+        //         "Access-Control-Allow-Origin": "*",
+        //     }
+        //   };
         
           const userData ={
             "accountType": this.state.accountType,
@@ -93,23 +93,26 @@ class companysignup extends Component {
             "password": this.state.password,
             "confirmPassword": this.state.confirmPassword
         };
-          axios.post('/signup/company', userData, axiosConfig)
+          axios.post('/signup/company', userData)
             .then(res => {
-                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-                console.log(res.data);
-                this.state.loading = false;
-                // this.setState({token : res.data.token,
-                // loading: false});
-
-                this.props.history.push('/');
-                console.log("got response");
-                console.log(this.state);
-            })
-            .catch((err) => {
-                this.state.errors = err.response.data;
-              
-                this.state.loading = false;
-                console.log("got errors");
+                    const FBIdToken = `Bearer ${res.data.token}`;
+                    localStorage.setItem('FBIdToken', FBIdToken);
+                    axios.defaults.headers.common['Authorization'] = FBIdToken;
+                    // axios.defaults.headers.common['SignedIn'] = true;
+                    this.setState({
+                        token : res.data.token,
+                        loading: false}
+                        );
+                    this.props.history.push('/');
+                    console.log("got response");
+                    console.log(this.state);
+                })
+                .catch((err) => {
+                    this.setState({
+                        errors: err.response.data,
+                        loading: false
+                    })
+                    console.log("got errors");
                 console.log(this.state);
 
               

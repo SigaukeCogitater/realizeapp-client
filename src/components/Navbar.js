@@ -35,7 +35,7 @@ class Navbar extends Component {
                     {/* <IconButton edge="start"  color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton> */}
-                    <Button color="inherit" component={Link} to="/signin">Sigin</Button>
+                    
                     <Button color="inherit" component={Link} to="/">Home</Button>
                     <Button color="inherit" component={Link} to="/companysignup">Signup Companies</Button>
                     <Button color="inherit" component={Link} to="/personalsignup">Signup Personal</Button>

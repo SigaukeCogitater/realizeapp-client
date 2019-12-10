@@ -66,39 +66,36 @@ class signin extends Component {
         event.preventDefault();
         this.setState({
             loading: true
-        });
-        let axiosConfig = {
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                "Access-Control-Allow-Origin": "*",
-            }
-          };
-        
+        });    
           const userData ={
             
             "email": this.state.email,
             "password": this.state.password
         };
-          axios.post('/login', userData, axiosConfig)
+          axios.post('/login', userData)
             .then(res => {
-                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-                this.setState({token : res.data.token,
-                loading: false});
+                const FBIdToken = `Bearer ${res.data.token}`;
+                localStorage.setItem('FBIdToken', FBIdToken);
+                axios.defaults.headers.common['Authorization'] = FBIdToken;
+
+                this.setState({
+                    token : res.data.token,
+                    loading: false}
+                    );
+                
+               
 
                 this.props.history.push('/');
                 console.log(this.state);
             })
             .catch((err) => {
-                this.state.errors = err.response.data;
-                //this.state.errors.password = err.response.data.errors.password;
                 //this.state.errors.email = err.response.data.errors.email;
-                this.state.loading = false;
+                this.setState({
+                    errors: err.response.data,
+                    loading: false
+                });
                 console.log(this.state.errors);
 
-                // this.setState({
-                //     errors: err.response.data,
-                //     loading: false
-                // });
             });
     };
 
@@ -154,7 +151,7 @@ class signin extends Component {
                             color="primary"
                             className={classes.button}
                             onClick={this.handleSubmit}
-                            // disabled={loading}
+                            disabled={loading}
                             >
                               Signin
                               {loading && (
